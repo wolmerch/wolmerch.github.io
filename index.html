@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wolmerch | О нас</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --bg2: #ffffff;
+      --bg3: #e8e8e8;
+      --text: #1a1a1a;
+      --text2: #555;
+      --card: #fff;
+      --card-border: rgba(0, 0, 0, 0.08);
+      --shadow: rgba(0, 0, 0, 0.1);
+      --accent: #10b981;
+      --accent2: #06b6d4;
+      --glass: rgba(255, 255, 255, 0.7);
+      --block-bg: #c8c8c8;
+      --block-border: #a0a0a0;
+      --block-light: #d8d8d8;
+      --shimmer1: #1a1a1a;
+      --shimmer2: #555;
+      --shimmer3: #999
+    }
+    
+    [data-theme="dark"] {
+      --bg: #0a0a0a;
+      --bg2: #151515;
+      --bg3: #222;
+      --text: #f0f0f0;
+      --text2: #aaa;
+      --card: #1e1e1e;
+      --card-border: rgba(255, 255, 255, 0.06);
+      --shadow: rgba(0, 0, 0, 0.4);
+      --glass: rgba(30, 30, 30, 0.8);
+      --block-bg: #888;
+      --block-border: #666;
+      --block-light: #999;
+      --shimmer1: #ffffff;
+      --shimmer2: #bbbbbb;
+      --shimmer3: #777777
+    }
+    
+    [data-theme="light"] .product-card {
+      border: 1px solid #d4d4d4
+    }
+    
+    [data-theme="light"] .about-card,
+    [data-theme="light"] .about-stat,
+    [data-theme="light"] .game-card,
+    [data-theme="light"] .promo-card-item,
+    [data-theme="light"] .cart-item,
+    [data-theme="light"] .promo-result,
+    [data-theme="light"] .uses-result-card,
+    [data-theme="light"] .cooldown-timer,
+    [data-theme="light"] .filter-btn,
+    [data-theme="light"] .size-btn,
+    [data-theme="light"] .icon-btn,
+    [data-theme="light"] .pickaxe-slot,
+    [data-theme="light"] .uses-spinner,
+    [data-theme="light"] .order-form input,
+    [data-theme="light"] .promo-section input {
+      border-color: #d4d4d4
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background .4s, color .4s;
+      min-height: 100vh
+    }
+    
+    a {
+      color: inherit
+    }
+    
+    .mc {
+      font-family: 'Press Start 2P', monospace
+    }
+    
+    .shimmer {
+      background: linear-gradient(90deg, var(--shimmer1), var(--shimmer2), var(--shimmer3), var(--shimmer2), var(--shimmer1));
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite
+    }
+    
+    @keyframes shimmer {
+      0% {
+        background-position: 0% 50%
+      }
+      100% {
+        background-position: 300% 50%
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+    
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border)
+    }
+    
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+    
+    .logo {
+      font-size: 14px;
+      cursor: pointer
+    }
+    
+    nav {
+      display: flex;
+      gap: 8px
+    }
+    
+    nav a {
+      background: none;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      color: var(--text2);
+      transition: .3s;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block
+    }
+    
+    nav a:hover,
+    nav a.active {
+      background: var(--accent);
+      color: #fff
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+    
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--card);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: .3s;
+      position: relative;
+      text-decoration: none
+    }
+    
+    .icon-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px)
+    }
+    
+    .badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 10px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700
+    }
+    
+    .lang-label {
+      font-size: 10px;
+      font-weight: 800;
+      position: absolute;
+      bottom: 2px;
+      right: 4px;
+      color: var(--accent);
+      pointer-events: none
+    }
+    
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      animation: fadeIn .6s ease
+    }
+    
+    .section-title {
+      font-size: clamp(18px, 3vw, 28px);
+      margin-bottom: 24px
+    }
+    
+    .about-section {
+      display: block
+    }
+    
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 24px
+    }
+    
+    .about-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 32px;
+      border: 1px solid var(--card-border);
+      transition: .3s
+    }
+    
+    .about-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px var(--shadow)
+    }
+    
+    .about-card h3 {
+      font-size: 14px;
+      margin-bottom: 12px
+    }
+    
+    .about-card p {
+      color: var(--text2);
+      font-size: 14px;
+      line-height: 1.7
+    }
+    
+    .about-card .role {
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block
+    }
+    
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin-top: 32px
+    }
+    
+    .about-stat {
+      text-align: center;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid var(--card-border)
+    }
+    
+    .about-stat .num {
+      font-size: 28px;
+      font-weight: 800;
+      display: block;
+      margin-bottom: 4px
+    }
+    
+    .about-stat .label {
+      font-size: 11px;
+      color: var(--text2)
+    }
+    
+    .team-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 16px;
+      border: 2px solid var(--card-border);
+      overflow: hidden
+    }
+    
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+    
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid var(--card-border);
+      color: var(--text2);
+      font-size: 13px
+    }
+    
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--card-border);
+      z-index: 100;
+      padding: 8px;
+      justify-content: space-around
+    }
+    
+    .mobile-nav a {
+      background: none;
+      border: none;
+      color: var(--text2);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      padding: 8px;
+      transition: .3s;
+      text-decoration: none
+    }
+    
+    .mobile-nav a.active {
+      color: var(--accent)
+    }
+    
+    @media(max-width:768px) {
+      nav {
+        display: none
+      }
+      .mobile-nav {
+        display: flex !important
+      }
+      body {
+        padding-bottom: 70px
+      }
+    }
+  </style>
+</head>
+
+<body data-theme="light">
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo mc shimmer" style="text-decoration:none">Wolmerch</a>
+      <nav>
+        <a href="/shop" data-nav="shop" data-i18n="nav_catalog">Каталог</a>
+        <a href="/game" data-nav="game" data-i18n="nav_game">Игра</a>
+        <a href="/favourite" data-nav="favorites" data-i18n="nav_favorites">Избранное</a>
+        <a href="/promos" data-nav="promos" data-i18n="nav_promos">Промокоды</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" onclick="toggleLang()" title="Language" id="langBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
+          <span class="lang-label" id="langLabel">RU</span>
+        </button>
+        <button class="icon-btn" onclick="toggleTheme()" title="Theme" id="themeBtn">
+          <svg id="themeSvg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+        <a href="cart.html" class="icon-btn" title="Cart" id="cartBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+          </svg><span class="badge" id="cartBadge" style="display:none">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav">
+    <a href="/shop" data-nav="shop">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7" />
+        <rect x="14" y="3" width="7" height="7" />
+        <rect x="3" y="14" width="7" height="7" />
+        <rect x="14" y="14" width="7" height="7" />
+      </svg><span data-i18n="nav_catalog">Каталог</span></a>
+    <a href="/game" data-nav="game">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg><span data-i18n="nav_game">Игра</span></a>
+    <a href="/favourite" data-nav="favorites">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+      </svg><span data-i18n="nav_favorites">Избранное</span></a>
+    <a href="/promos" data-nav="promos">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="20 12 20 22 4 22 4 12" />
+        <rect x="2" y="7" width="20" height="5" />
+        <line x1="12" y1="22" x2="12" y2="7" />
+        <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+        <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+      </svg><span data-i18n="nav_promos">Промокоды</span></a>
+  </div>
+
+  <section class="section about-section" id="about-section" style="display:block">
+    <h2 class="section-title mc shimmer" data-i18n="about_title">Кто мы?</h2>
+    <div class="about-card" style="margin-bottom:32px">
+      <p style="color:var(--text2);line-height:2;font-size:15px;margin-bottom:16px" data-i18n="about_p1"><strong style="color:var(--text)">Wolmerch</strong> — это мерч, созданый YouTube-каналом MrWolfol. Всё началось летом 2024 года, когда наша команда решила, что наши подписчики заслуживают одежду, которую нравится носить не только дома, но и на улице, в школе, в универе — везде.</p>
+      <p style="color:var(--text2);line-height:2;font-size:15px;margin-bottom:16px" data-i18n="about_p2">Наши вещи не просто логотип. Каждая вещь — это авторский дизайн, над которым трудилось огромное количество людей, чтобы Вам понравилось.</p>
+      <p style="color:var(--text2);line-height:2;font-size:15px" data-i18n="about_p3">За 2 года мы создали огромное количество разных вещей, но ничего этого не получилось бы без наших прекрасных подписчиков. Большое спасибо, что Вы идёте с нами и всегда нас поддерживаете. Вы - лучшие!</p>
+    </div>
+    <div class="about-stats">
+      <div class="about-stat"><span class="num mc shimmer">2024</span><span class="label" data-i18n="stat_founded">Год основания</span></div>
+      <div class="about-stat"><span class="num mc shimmer">1K+</span><span class="label" data-i18n="stat_clients">Довольных клиентов</span></div>
+      <div class="about-stat"><span class="num mc shimmer">20+</span><span class="label" data-i18n="stat_models">Моделей одежды</span></div>
+      <div class="about-stat"><span class="num mc shimmer">6</span><span class="label" data-i18n="stat_team">Человек в команде</span></div>
+      <div class="about-stat"><span class="num mc shimmer">2</span><span class="label" data-i18n="stat_collections">Коллекций выпущено</span></div>
+      <div class="about-stat"><span class="num mc shimmer">4.85</span><span class="label" data-i18n="stat_rating">Средняя оценка</span></div>
+    </div>
+    <h3 class="mc shimmer" style="font-size:14px;margin-top:48px;margin-bottom:24px" data-i18n="team_title">Наша команда</h3>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="team-avatar"><img src="./baketov.png" alt=""></div><span class="role mc" data-i18n="role_ceo">Основатель и CEO</span>
+        <h3 data-i18n="name_ceo">Бакетов Артём</h3>
+        <p data-i18n="desc_ceo">Создатель ютуб-канала MrWolfol и бренда Wolmerch. Основной составляющей канала является игра Minecraft.</p>
+      </div>
+      <div class="about-card">
+        <div class="team-avatar"><img src="./kosorukov.png" alt=""></div><span class="role mc" data-i18n="role_creative">Креативный директор</span>
+        <h3 data-i18n="name_creative">Косоруков Владимир</h3>
+        <p data-i18n="desc_creative">Разрабатывает каждый элемент одежды с нуля и старается угодить всем нашим клиентам (даже Вам).</p>
+      </div>
+      <div class="about-card">
+        <div class="team-avatar"><img src="./konstantin.png" alt=""></div><span class="role mc" data-i18n="role_cto">Технический директор</span>
+        <h3 data-i18n="name_cto">Бакетов Константин</h3>
+        <p data-i18n="desc_cto">Full-stack разработчик с 5-летним опытом. Создал сайт и всю IT-инфраструктуры Wolmerch с нуля.</p>
+      </div>
+      <div class="about-card">
+        <div class="team-avatar"><img src="./pervinkin.png" alt=""></div><span class="role mc" data-i18n="role_marketing">Директор по маркетингу</span>
+        <h3 data-i18n="name_marketing">Первинкин Ярослав</h3>
+        <p data-i18n="desc_marketing">Построил комьюнити с 0 до 1K подписчиков в YouTube и 100+ в Telegram. Организует различные колаборации.</p>
+      </div>
+      <div class="about-card">
+        <div class="team-avatar"><img src="./tsvetkov.png" alt=""></div><span class="role mc" data-i18n="role_production">Руководитель производства</span>
+        <h3 data-i18n="name_production">Цветков Артём</h3>
+        <p data-i18n="desc_production">Контролирует качество на каждом этапе — от закупки тканей до упаковки, 6 лет опыта в текстильной индустрии.</p>
+      </div>
+      <div class="about-card">
+        <div class="team-avatar"><img src="./avdeev.png" alt=""></div><span class="role mc" data-i18n="role_support">Менеджер по работе с клиентами</span>
+        <h3 data-i18n="name_support">Авдеев Мирон</h3>
+        <p data-i18n="desc_support">Отвечает за то, чтобы каждый клиент остался доволен. Средний рейтинг его работы — 4.96 из 5.</p>
+      </div>
+    </div>
+    <h3 class="mc shimmer" style="font-size:14px;margin-top:48px;margin-bottom:24px" data-i18n="mission_title">Наша миссия</h3>
+    <div class="about-card" style="margin-bottom:24px">
+      <p style="color:var(--text2);line-height:2;font-size:15px;margin-bottom:16px" data-i18n="mission_p1">Мы верим, что одежда — это не просто ткань. Это способ заявить миру о том, кто ты и что тебе дорого.</p>
+      <p style="color:var(--text2);line-height:2;font-size:15px" data-i18n="mission_p2">Наша цель — стать брендом номер один для гейминг-комьюнити в России. Не через громкую рекламу, а через качество, честность и настоящую связь с нашими клиентами.</p>
+    </div>
+    <h3 class="mc shimmer" style="font-size:14px;margin-top:48px;margin-bottom:24px" data-i18n="values_title">Наши ценности</h3>
+    <div class="about-grid" style="grid-template-columns:repeat(auto-fill, minmax(220px, 1fr))">
+      <div class="about-card" style="text-align:center">
+        <div style="margin-bottom:12px">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin:0 auto;display:block">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+        </div>
+        <h3 style="font-size:13px;margin-bottom:8px" data-i18n="val_love">Любовь к делу</h3>
+        <p data-i18n="val_love_desc">Мы делаем то, что любим, и это чувствуется в каждой вещи</p>
+      </div>
+      <div class="about-card" style="text-align:center">
+        <div style="margin-bottom:12px">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin:0 auto;display:block">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </div>
+        <h3 style="font-size:13px;margin-bottom:8px" data-i18n="val_client">Клиент в центре</h3>
+        <p data-i18n="val_client_desc">Каждое решение мы принимаем, думая о вас</p>
+      </div>
+      <div class="about-card" style="text-align:center">
+        <div style="margin-bottom:12px">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin:0 auto;display:block">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
+        </div>
+        <h3 style="font-size:13px;margin-bottom:8px" data-i18n="val_best">Стремление к лучшему</h3>
+        <p data-i18n="val_best_desc">Мы постоянно улучшаем качество и дизайн</p>
+      </div>
+      <div class="about-card" style="text-align:center">
+        <div style="margin-bottom:12px">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin:0 auto;display:block">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        </div>
+        <h3 style="font-size:13px;margin-bottom:8px" data-i18n="val_honest">Честность</h3>
+        <p data-i18n="val_honest_desc">Никаких скрытых наценок и мелкого шрифта</p>
+      </div>
+    </div>
+    <h3 class="mc shimmer" style="font-size:14px;margin-top:48px;margin-bottom:24px" data-i18n="contacts_title">Связаться с нами</h3>
+    <div class="about-grid" style="grid-template-columns:repeat(auto-fill, minmax(220px, 1fr))">
+      <div class="about-card" style="text-align:center">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin:0 auto 12px;display:block">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+          <polyline points="22,6 12,13 2,6" />
+        </svg>
+        <h3 style="font-size:13px;margin-bottom:4px" data-i18n="contact_email">Почта</h3>
+        <p>wolmerch.help@gmail.com</p>
+      </div>
+      <div class="about-card" style="text-align:center">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin:0 auto 12px;display:block">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+        </svg>
+        <h3 style="font-size:13px;margin-bottom:4px" data-i18n="contact_phone">Телефон</h3>
+        <p>+7 (495) 300-30-30</p>
+      </div>
+      <div class="about-card" style="text-align:center">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin:0 auto 12px;display:block">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+        <h3 style="font-size:13px;margin-bottom:4px" data-i18n="contact_office">Офис</h3>
+        <p data-i18n="contact_office_addr">Москва, ул. Пиксельная</p>
+      </div>
+      <div class="about-card" style="text-align:center">
+        <a href="https://t.me/wolfolyt" target="_blank" style="text-decoration:none;color:inherit;display:block">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--accent)" stroke="none" style="margin:0 auto 12px;display:block">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.75 4-1.73 6.67-2.88 8.02-3.45 3.82-1.6 4.62-1.88 5.13-1.89.11 0 .37.03.54.17.14.12.18.28.2.47-.01.06.01.24 0 .38z" />
+          </svg>
+          <h3 style="font-size:13px;margin-bottom:4px">Telegram</h3>
+          <p>@wolfolyt</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="mc" style="font-size:10px">Wolmerch 2026</p>
+  </footer>
+
+  <script>
+    var BOT_TOKEN = '7976372852:AAEk3Xu1BlDaz9GkwOeLxya2Ob5Xjyy-uDo';
+    var CHAT_ID = '5817579313';
+    var COOLDOWN_MS = 5 * 24 * 60 * 60 * 1000;
+    var currentLang = localStorage.getItem('mw_lang') || 'ru';
+    var i18n = {
+      ru: {
+        nav_catalog: 'Каталог',
+        nav_game: 'Игра',
+        nav_favorites: 'Избранное',
+        nav_promos: 'Промокоды',
+        about_title: 'Кто мы?',
+        about_p1: '<strong style="color:var(--text)">Wolmerch</strong> — это мерч, созданый YouTube-каналом MrWolfol. Всё началось летом 2024 года, когда наша команда решила, что наши подписчики заслуживают одежду, которую нравится носить не только дома, но и на улице, в школе, в универе — везде.',
+        about_p2: 'Наши вещи не просто логотип. Каждая вещь — это авторский дизайн, над которым трудилось огромное количество людей, чтобы Вам понравилось.',
+        about_p3: 'За 2 года мы создали огромное количество разных вещей, но ничего этого не получилось бы без наших прекрасных подписчиков. Большое спасибо, что Вы идёте с нами и всегда нас поддерживаете. Вы - лучшие!',
+        stat_founded: 'Год основания',
+        stat_clients: 'Довольных клиентов',
+        stat_models: 'Моделей одежды',
+        stat_team: 'Человек в команде',
+        stat_collections: 'Коллекций выпущено',
+        stat_rating: 'Средняя оценка',
+        team_title: 'Наша команда',
+        role_ceo: 'Основатель и CEO',
+        name_ceo: 'Бакетов Артём',
+        desc_ceo: 'Создатель ютуб-канала MrWolfol и бренда Wolmerch. Основной составляющей канала является игра Minecraft.',
+        role_creative: 'Креативный директор',
+        name_creative: 'Косоруков Владимир',
+        desc_creative: 'Разрабатывает каждый элемент одежды с нуля и старается угодить всем нашим клиентам (даже Вам).',
+        role_cto: 'Технический директор',
+        name_cto: 'Бакетов Константин',
+        desc_cto: 'Full-stack разработчик с 5-летним опытом. Создал сайт и всю IT-инфраструктуры Wolmerch с нуля.',
+        role_marketing: 'Директор по маркетингу',
+        name_marketing: 'Первинкин Ярослав',
+        desc_marketing: 'Построил комьюнити с 0 до 1K подписчиков в YouTube и 100+ в Telegram. Организует различные колаборации.',
+        role_production: 'Руководитель производства',
+        name_production: 'Цветков Артём',
+        desc_production: 'Контролирует качество на каждом этапе — от закупки тканей до упаковки, 6 лет опыта в текстильной индустрии.',
+        role_support: 'Работа с клиентами',
+        name_support: 'Авдеев Мирон',
+        desc_support: 'Отвечает за то, чтобы каждый клиент остался доволен. Средний рейтинг его работы — 4.86 из 5.',
+        mission_title: 'Наша миссия',
+        mission_p1: 'Мы верим, что одежда — это не просто ткань. Это способ заявить миру о том, кто мы и что нам дорого.',
+        mission_p2: 'Наша цель — стать брендом номер один для наших подписчиков в России. Не через громкую рекламу, а через качество, честность и настоящую связь с нашими клиентами.',
+        values_title: 'Наши ценности',
+        val_love: 'Любовь к делу',
+        val_love_desc: 'Мы делаем то, что любим, и это чувствуется в каждой вещи',
+        val_client: 'Клиент в центре',
+        val_client_desc: 'Каждое решение мы принимаем, думая о вас',
+        val_best: 'Стремление к лучшему',
+        val_best_desc: 'Мы постоянно улучшаем качество и дизайн',
+        val_honest: 'Честность',
+        val_honest_desc: 'Никаких скрытых наценок и мелкого шрифта',
+        contacts_title: 'Связаться с нами',
+        contact_email: 'Почта',
+        contact_phone: 'Телефон',
+        contact_office: 'Офис',
+        contact_office_addr: 'Москва, ул. Пиксельная'
+      },
+      en: {
+        nav_catalog: 'Catalog',
+        nav_game: 'Game',
+        nav_favorites: 'Favorites',
+        nav_promos: 'Promo Codes',
+        about_title: 'Who are we?',
+        about_p1: '<strong style="color:var(--text)">Wolmerch</strong> — this is merchandise created by the YouTube channel MrWolfol. It all started in the summer of 2024, when our team decided that our subscribers deserved clothes that they could wear not only at home but also outside, at school, at university — everywhere.',
+        about_p2: 'Our items are not just a logo. Each item is an original design that has been created by a team of people to make you happy.',
+        about_p3: 'Over the past 2 years, we\'ve created a wide range of products, but none of it would have been possible without our amazing followers. Thank you so much for joining us and always supporting us. You\'re the best!',
+        stat_founded: 'Year founded',
+        stat_clients: 'Happy customers',
+        stat_models: 'Clothing models',
+        stat_team: 'Team members',
+        stat_collections: 'Collections released',
+        stat_rating: 'Average rating',
+        team_title: 'Our Team',
+        role_ceo: 'Founder & CEO',
+        name_ceo: 'Baketov Artem',
+        desc_ceo: 'Creator of the YouTube channel MrWolfol and the brand Wolmerch. The main component of the channel is the game Minecraft.',
+        role_creative: 'Creative Director',
+        name_creative: 'Kosorukov Vladimir',
+        desc_creative: 'He designs every piece of clothing from scratch and tries to please all our customers (even you).',
+        role_cto: 'CTO',
+        name_cto: 'Baketov Konstantin',
+        desc_cto: 'Full-stack developer with 5 years of experience. Created the Wolmerch website and IT infrastructure from scratch.',
+        role_marketing: 'Marketing Director',
+        name_marketing: 'Pervinkin Yaroslav',
+        desc_marketing: 'Built a community from 0 to 1K subscribers on YouTube and 100+ on Telegram. Organizes various collaborations.',
+        role_production: 'Head of Production',
+        name_production: 'Tsvetkov Artem',
+        desc_production: 'He controls quality at every stage, from fabric procurement to packaging, and has 6 years of experience in the textile industry.',
+        role_support: 'Customer Relations Manager',
+        name_support: 'Avdeev Miron',
+        desc_support: 'Responsible for ensuring that every customer is satisfied. The average rating for his work is 4.86 out of 5.',
+        mission_title: 'Our Mission',
+        mission_p1: 'We believe that clothing is not just fabric. It\'s a way to tell the world who you are and what you care about.',
+        mission_p2: 'Our goal is to become the number one brand for the gaming community in Russia. Not through loud advertising, but through quality, honesty, and genuine connection with our customers.',
+        values_title: 'Our Values',
+        val_love: 'Passion',
+        val_love_desc: 'We do what we love, and it shows in every piece',
+        val_client: 'Customer First',
+        val_client_desc: 'Every decision we make is with you in mind',
+        val_best: 'Pursuit of Excellence',
+        val_best_desc: 'We constantly improve quality and design',
+        val_honest: 'Honesty',
+        val_honest_desc: 'No hidden markups or fine print',
+        contacts_title: 'Contact Us',
+        contact_email: 'Email',
+        contact_phone: 'Phone',
+        contact_office: 'Office',
+        contact_office_addr: 'Moscow, Pixel St.'
+      }
+    };
+
+    function t(key) {
+      return (i18n[currentLang] && i18n[currentLang][key]) || key
+    }
+
+    function applyLang() {
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var k = el.getAttribute('data-i18n');
+        var v = t(k);
+        if (v) el.innerHTML = v
+      });
+      var ll = document.getElementById('langLabel');
+      if (ll) ll.textContent = currentLang.toUpperCase()
+    }
+
+    function toggleLang() {
+      currentLang = currentLang === 'ru' ? 'en' : 'ru';
+      localStorage.setItem('mw_lang', currentLang);
+      applyLang()
+    }
+
+    function setThemeIcon(theme) {
+      var svg = document.getElementById('themeSvg');
+      if (!svg) return;
+      if (theme === 'dark') svg.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+      else svg.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+    }
+
+    function loadTheme() {
+      var th = localStorage.getItem('mw_theme') || 'dark';
+      document.body.setAttribute('data-theme', th);
+      setThemeIcon(th)
+    }
+
+    function toggleTheme() {
+      var cur = document.body.getAttribute('data-theme');
+      var next = cur === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', next);
+      localStorage.setItem('mw_theme', next);
+      setThemeIcon(next)
+    }
+    var cart = JSON.parse(localStorage.getItem('mw_cart') || '[]');
+
+    function updateCartBadge() {
+      var b = document.getElementById('cartBadge');
+      if (!b) return;
+      if (cart.length) {
+        b.style.display = 'flex';
+        b.textContent = cart.length
+      } else b.style.display = 'none'
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      loadTheme();
+      updateCartBadge();
+      applyLang()
+    });
+  </script>
+</body>
+</html>
